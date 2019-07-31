@@ -3,6 +3,8 @@ import JoblyApi from './JoblyApi';
 import CompanyCard from './CompanyCard';
 import Search from './Search';
 
+// TODO: RESET COMPANIES PAGE WHEN NAVBAR CLICKED
+
 class Companies extends React.Component {
   constructor(props) {
     super(props);
@@ -13,6 +15,7 @@ class Companies extends React.Component {
     this.searchCompanies = this.searchCompanies.bind(this);
   }
 
+  // API returns an array of objects containing companies. [{company}, ...]
   async componentDidMount() {
     let companiesList = await JoblyApi.getAllCompanies();
 
@@ -21,8 +24,11 @@ class Companies extends React.Component {
     }));
   }
 
+  // Passing in a search term to API returns an array of objects. [{company}, ...]
+  // Update state with only the returned items.
   async searchCompanies(searchTerm) {
     let searchedCompanies = await JoblyApi.searchCompanies(searchTerm)
+    console.log(searchedCompanies);
     
     this.setState(() => ({
       companies: searchedCompanies
@@ -30,6 +36,8 @@ class Companies extends React.Component {
   }
 
   render() {
+
+    // Display company cards for all companies in the state.
     let cards = this.state.companies.map(company => {
       return <CompanyCard key={company.handle}  companyData={company} />
     });
