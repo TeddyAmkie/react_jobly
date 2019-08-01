@@ -1,11 +1,11 @@
 import axios from 'axios';
 
 const BASE_URL = "http://localhost:3001";
+const jwt = require("jsonwebtoken");
 
 class JoblyApi {
   static async request(endpoint, paramsOrData = {}, verb = "get") {
-    paramsOrData._token = ( // for now, hardcode token for "testing"
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Imhla21hdCIsImlhdCI6MTU2NDY3ODMyMH0.GFn7nE4CzYEqyaqGa8T9kuG5K5NJA6rYFCiLRhjk140");
+    paramsOrData._token = localStorage.getItem("token");
 
     console.debug("API Call:", endpoint, paramsOrData, verb);
 
@@ -76,7 +76,17 @@ class JoblyApi {
 
   // Login user, returns token
   static async login(formInput) {
-    
+    let res = await this.request(`login/`, { ...formInput}, "POST");
+
+    return res.token;
+  }
+
+  // Get user
+  static async getUser(token) {
+    let decoded = jwt.decode(token);
+    let res = await this.request(`users/${decoded.username}`);
+    console.log(decoded)
+    return res.user;
   }
 }
 

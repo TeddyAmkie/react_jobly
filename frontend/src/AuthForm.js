@@ -7,7 +7,12 @@ class AuthForm extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      method: "login"
+      method: "login",
+      username: "",
+      password: "",
+      firstName: "",
+      lastName: "",
+      email: ""
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -21,12 +26,13 @@ class AuthForm extends React.Component {
     });
   };
 
-  handleSubmit(evt) {
+  async handleSubmit(evt) {
     evt.preventDefault();
-    
-    this.setState({
-      // TODO
-    });
+
+    let {username,password} = this.state;
+    let token = await JoblyApi.login({ username, password });
+
+    localStorage.setItem("token", token);
   };
 
   handleClick(evt) {
@@ -82,6 +88,9 @@ class AuthForm extends React.Component {
                   size="md"
                   >Sign Up</Button>
         </div>
+
+        {/* Form starts here */}
+
         <div style={{ border: "2px solid rgba(0,0,0,.125)", borderRadius: "10px", padding: "10px", overflow: "auto" }}>
           <Form onSubmit={this.handleSubmit}>
             <Form.Group>
@@ -101,6 +110,7 @@ class AuthForm extends React.Component {
                             size="md" type="password" /> 
             </Form.Group>
 
+            {/* Show additional input fields if signup */}
             {this.state.method === "signup" ? signUp : null}
             
             <Button type="submit" 
