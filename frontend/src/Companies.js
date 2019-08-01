@@ -10,9 +10,12 @@ class Companies extends React.Component {
     super(props);
 
     this.state = {
-      companies: []
+      companies: [],
+      loading: true
     };
+
     this.searchCompanies = this.searchCompanies.bind(this);
+    this.renderPage = this.renderPage.bind(this);
   }
 
   // API returns an array of objects containing companies. [{company}, ...]
@@ -20,7 +23,8 @@ class Companies extends React.Component {
     let companiesList = await JoblyApi.getAllCompanies();
 
     this.setState(() => ({
-      companies: companiesList
+      companies: companiesList,
+      loading: false
     }));
   }
 
@@ -28,15 +32,14 @@ class Companies extends React.Component {
   // Update state with only the returned items.
   async searchCompanies(searchTerm) {
     let searchedCompanies = await JoblyApi.searchCompanies(searchTerm)
-    console.log(searchedCompanies);
     
     this.setState(() => ({
       companies: searchedCompanies
     }));
   }
 
-  render() {
-
+  // After page loads, this function is called and renders the entire page. 
+  renderPage() {
     // Display company cards for all companies in the state.
     let cards = this.state.companies.map(company => {
       return <CompanyCard key={company.handle}  companyData={company} />
@@ -44,8 +47,16 @@ class Companies extends React.Component {
 
     return (
       <div>
+        {cards.length > 0 ? cards : "Sorry, no results were found!"}
+      </div>
+    );
+  }
+
+  render() {
+    return (
+      <div>
         <Search search={this.searchCompanies}/>
-        {this.state.companies.length > 0 ? cards : "Loading"}
+        {this.state.loading === true ? "Loading..." : this.renderPage()}
       </div>
     );
   }

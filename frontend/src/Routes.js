@@ -4,12 +4,13 @@ import Companies from './Companies';
 import Jobs from './Jobs';
 import Profile from './Profile';
 import Home from './Home';
+import CompanyDetails from "./CompanyDetails";
 
 class Routes extends React.Component {
   render() {
     return (
       <Switch>
-        <Route exact path="/companies/:handle" render={() => <Companies />} />
+        <Route exact path="/companies/:handle" render={ routeProps => <CompanyDetails {...routeProps} />} />
         <Route exact path="/companies" render={() => <Companies />} />
         <Route exact path="/jobs" render={() => <Jobs />} />
         <Route exact path="/profile" render={() => <Profile />} />
