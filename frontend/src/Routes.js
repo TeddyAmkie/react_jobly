@@ -5,6 +5,7 @@ import Jobs from './Jobs';
 import Profile from './Profile';
 import Home from './Home';
 import CompanyDetails from "./CompanyDetails";
+import AuthForm from "./AuthForm";
 
 class Routes extends React.Component {
   render() {
@@ -14,6 +15,7 @@ class Routes extends React.Component {
         <Route exact path="/companies" render={() => <Companies />} />
         <Route exact path="/jobs" render={() => <Jobs />} />
         <Route exact path="/profile" render={() => <Profile />} />
+        <Route exact path="/login" render={() => <AuthForm />} />
         <Route exact path="/" render={() => <Home />} />
         <Redirect to="/" />
       </Switch>

@@ -40,9 +40,9 @@ class Search extends React.Component {
                         value={this.state.searchTerm} 
                         size="md" type="text" /> 
           <Button type="submit" 
-                  variant="outline-info" 
+                  variant="outline-dark" 
                   size="md"
-                  className="ml-2"
+                  className="ml-2 "
                   >Search</Button>
         </Form>
       </div>

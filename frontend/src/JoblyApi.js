@@ -5,9 +5,7 @@ const BASE_URL = "http://localhost:3001";
 class JoblyApi {
   static async request(endpoint, paramsOrData = {}, verb = "get") {
     paramsOrData._token = ( // for now, hardcode token for "testing"
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc" +
-    "3RpbmciLCJpc19hZG1pbiI6ZmFsc2UsImlhdCI6MTU1MzcwMzE1M30" +
-    "COmFETEsTxN_VfIlgIKw0bYJLkvbRQNgO1XCSE8NZ0U");
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Imhla21hdCIsImlhdCI6MTU2NDY3ODMyMH0.GFn7nE4CzYEqyaqGa8T9kuG5K5NJA6rYFCiLRhjk140");
 
     console.debug("API Call:", endpoint, paramsOrData, verb);
 
@@ -59,22 +57,26 @@ class JoblyApi {
   // Returns [{job}, ...]
   static async searchJobs(searchTerm) {
     let res;
-    
-    // search job titles
-    if (isNaN(searchTerm)) {
-      res = await this.request(`jobs/`, {search: searchTerm});
-    }
-
+  
     // search for equity
     if (+searchTerm < 1) {
       res = await this.request(`jobs/`, {max_equity: +searchTerm});
 
       // search for salary
-    } else {
+    } else if (+searchTerm > 1) {
       res = await this.request(`jobs/`, {min_salary: +searchTerm});
+
+      // search for job titles
+    } else {
+      res = await this.request(`jobs/`, {search: searchTerm});
     }
 
     return res.jobs;
+  }
+
+  // Login user, returns token
+  static async login(formInput) {
+    
   }
 }
 
