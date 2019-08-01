@@ -5,7 +5,8 @@ class Home extends React.Component {
 
     return (
       <div>
-        :)
+        <h1> Jobly</h1>
+        <p> All the jobs in one, convenient place.</p>
       </div>
     )
   }

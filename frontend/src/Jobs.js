@@ -11,8 +11,8 @@ class Jobs extends React.Component {
       jobs: [],
       loading: true
     };
+    
     this.searchJobs = this.searchJobs.bind(this);
-    this.renderPage = this.renderPage.bind(this);
   }
 
   // API returns an array of objects containing companies. [{company}, ...]
@@ -35,24 +35,17 @@ class Jobs extends React.Component {
     }));
   }
 
-  renderPage() {
-    // Create company cards for all companies in the state.
-    let cards = this.state.jobs.map(job => {
-      return <JobCard jobData={job}/>
-    });
-
-    return (
-      <div>
-        {cards.length > 0 ? cards : "Sorry, no results were found!"}
-      </div>
-    );
-  }
-
   render() {
+    // Create company cards for all companies in the state.
+    const cards = this.state.jobs.map(job => {
+      return <JobCard key={job.id} {...job}/>
+    });
+    const cardResult = cards.length > 0 ? cards : "Sorry, no results were found!"
+
     return (
-      <div>
+      <div className={"container"}>
         <Search search={this.searchJobs}/>
-        {this.state.loading === true ? "Loading..." : this.renderPage()}
+        {this.state.loading ? "Loading..." : cardResult}
       </div>
     );
   }

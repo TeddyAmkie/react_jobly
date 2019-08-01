@@ -15,17 +15,15 @@ class Companies extends React.Component {
     };
 
     this.searchCompanies = this.searchCompanies.bind(this);
-    this.renderPage = this.renderPage.bind(this);
   }
 
   // API returns an array of objects containing companies. [{company}, ...]
   async componentDidMount() {
-    let companiesList = await JoblyApi.getAllCompanies();
-
-    this.setState(() => ({
-      companies: companiesList,
+    let companies = await JoblyApi.getAllCompanies();
+    this.setState({
+      companies,
       loading: false
-    }));
+    });
   }
 
   // Passing in a search term to API returns an array of objects. [{company}, ...]
@@ -33,30 +31,23 @@ class Companies extends React.Component {
   async searchCompanies(searchTerm) {
     let searchedCompanies = await JoblyApi.searchCompanies(searchTerm)
     
-    this.setState(() => ({
+    this.setState({
       companies: searchedCompanies
-    }));
-  }
-
-  // After page loads, this function is called and renders the entire page. 
-  renderPage() {
-    // Display company cards for all companies in the state.
-    let cards = this.state.companies.map(company => {
-      return <CompanyCard key={company.handle}  companyData={company} />
     });
-
-    return (
-      <div>
-        {cards.length > 0 ? cards : "Sorry, no results were found!"}
-      </div>
-    );
   }
 
+
+  
   render() {
+    const cards = this.state.companies.map(company => {
+      return <CompanyCard key={company.handle} {...company}  />
+    });
+    const cardResult = cards.length > 0 ? cards : "Sorry, no results were found!"
+
     return (
-      <div>
+      <div className="container">
         <Search search={this.searchCompanies}/>
-        {this.state.loading === true ? "Loading..." : this.renderPage()}
+        {this.state.loading ? "Loading..." : cardResult}
       </div>
     );
   }
