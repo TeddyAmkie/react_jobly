@@ -36,7 +36,9 @@ class Companies extends React.Component {
     });
   }
 
-
+  // NEED TO DO: SHOW UNAUTHORIZED MESSAGE
+  // HIDE NAV LINKS
+  // IF NO USER, REDIRECT TO LOGIN PAGE
   
   render() {
     const cards = this.state.companies.map(company => {

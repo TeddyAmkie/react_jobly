@@ -42,7 +42,7 @@ class App extends React.Component {
       <div className="App">
         <BrowserRouter>
           <Navbar user={this.state.user} handleLogout={this.handleLogout}/>
-          <Routes getUser={this.getUser}/>
+          <Routes getUser={this.getUser} user={this.state.user} />
         </BrowserRouter>
       </div>
     );

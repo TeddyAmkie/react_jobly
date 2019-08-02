@@ -33,7 +33,7 @@ class AuthForm extends React.Component {
     let token = await JoblyApi.login({ username, password });
 
     localStorage.setItem("token", token);
-    let user = await this.props.getUser(token);
+    await this.props.getUser(token);
     this.props.history.push("/");
   };
 

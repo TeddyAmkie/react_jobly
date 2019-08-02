@@ -14,12 +14,14 @@ class Routes extends React.Component {
                          />
     const logout = <Route exact path="/" render={() => <Home />} />
 
+
     return (
+      
       <Switch>
-        <Route exact path="/companies/:handle" render={ routeProps => <CompanyDetails {...routeProps}  />} />
-        <Route exact path="/companies" render={() => <Companies />} />
-        <Route exact path="/jobs" render={() => <Jobs />} />
-        <Route exact path="/profile" render={() => <Profile />} />
+        <Route exact path="/companies/:handle" render={ routeProps => this.props.user ? <CompanyDetails {...routeProps} /> : <Redirect to='/login' />} />
+        <Route exact path="/companies" render={() => this.props.user ? <Companies /> : <Redirect to='/login' />} />
+        <Route exact path="/jobs" render={() => this.props.user ?  <Jobs /> : <Redirect to='/login' /> } />
+        <Route exact path="/profile" render={() => this.props.user ?  <Profile /> : <Redirect to='/login' />} />
         {this.props.user ? logout : login}
         <Route exact path="/" render={() => <Home />} />
         <Redirect to="/" />
