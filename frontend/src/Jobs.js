@@ -13,6 +13,7 @@ class Jobs extends React.Component {
     };
     
     this.searchJobs = this.searchJobs.bind(this);
+    this.updateJobs = this.updateJobs.bind(this);
   }
 
   // API returns an array of objects containing companies. [{company}, ...]
@@ -35,10 +36,18 @@ class Jobs extends React.Component {
     }));
   }
 
+  async updateJobs() {
+    let jobsList = await JoblyApi.getAllJobs();
+
+    this.setState(() => ({
+      jobs: jobsList
+    }));
+  }
+
   render() {
     // Create company cards for all companies in the state.
     const cards = this.state.jobs.map(job => {
-      return <JobCard key={job.id} {...job}/>
+      return <JobCard  key={job.id} {...job} user={this.props.user} update={this.updateJobs}/>
     });
     const cardResult = cards.length > 0 ? cards : "Sorry, no results were found!"
 

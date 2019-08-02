@@ -25,10 +25,13 @@ class Profile extends React.Component {
   };
 
   async handleSubmit(evt) {
-    evt.preventDefault();
-    
-    await JoblyApi.updateUser(this.props.user.username, {...this.state});
-    await this.props.getUser(localStorage.getItem("token"));
+    try {
+      evt.preventDefault();
+      await JoblyApi.updateUser(this.props.user.username, {...this.state});
+      await this.props.getUser(localStorage.getItem("token"));
+    } catch(err) {
+      // TODO: SHOW MESSAGE IF EMPTY INPUTS / Auto populate empty inputs
+    }
   }
 
   handleClick(evt) {

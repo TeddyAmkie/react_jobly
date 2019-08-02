@@ -26,7 +26,7 @@ class CompanyDetails extends React.Component {
   // After page loads, this function is called and renders the entire page. 
   renderPage() {
     let jobs = this.state.company.jobs.map(job => {
-      return <JobCard key={job.id} {...job}/>
+      return <JobCard key={job.id} {...job} user={this.props.user}/>
     });
 
     return (
