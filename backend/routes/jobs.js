@@ -39,26 +39,25 @@ router.get("/:id", authRequired, async function(req, res, next) {
 
 /** POST / {jobData} => {job: job} */
 
-router.post(
-    "/", adminRequired, async function(req, res, next) {
-      try {
-        const validation = validate(req.body, jobNewSchema);
+router.post("/", adminRequired, async function(req, res, next) {
+    try {
+      const validation = validate(req.body, jobNewSchema);
 
-        if (!validation.valid) {
-          return next({
-            status: 400,
-            message: validation.errors.map(e => e.stack)
-          });
-        }
-
-        const job = await Job.create(req.body);
-        return res.status(201).json({job});
+      if (!validation.valid) {
+        return next({
+          status: 400,
+          message: validation.errors.map(e => e.stack)
+        });
       }
 
-      catch (err) {
-        return next(err);
-      }
+      const job = await Job.create(req.body);
+      return res.status(201).json({job});
     }
+
+    catch (err) {
+      return next(err);
+    }
+  }
 );
 
 /** PATCH /[jobid]  {jobData} => {job: updatedJob} */

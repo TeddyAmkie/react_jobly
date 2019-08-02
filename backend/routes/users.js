@@ -53,6 +53,7 @@ router.post("/", async function(req, res, next) {
       });
     }
 
+    console.log("REQUEST...", req.body)
     const newUser = await User.register(req.body);
     const token = createToken(newUser);
     return res.status(201).json({ token });
