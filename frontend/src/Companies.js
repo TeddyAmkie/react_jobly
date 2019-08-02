@@ -4,6 +4,9 @@ import CompanyCard from './CompanyCard';
 import Search from './Search';
 
 // TODO: RESET COMPANIES PAGE WHEN NAVBAR CLICKED
+// TODO: FIX APPLY BUTTON ON COMPANY DETAILS PAGE
+// TODO: ADD PAGINATION
+// TODO: UN-APPLY TO JOBS
 
 class Companies extends React.Component {
   constructor(props) {
