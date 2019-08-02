@@ -1,1 +1,1 @@
-# jobly_react
+# react_jobly
