@@ -22,7 +22,7 @@ class Navbar extends React.Component {
         <li className="nav-item mr-4"><NavLink to="/companies" activeStyle={ activeStyles }>Companies</NavLink></li>
         <li className="nav-item mr-4"><NavLink to="/jobs" activeStyle={ activeStyles }>Jobs</NavLink></li>
         <li className="nav-item mr-4"><NavLink to="/profile" activeStyle={ activeStyles }>Profile</NavLink></li>
-        {this.props.user ? logout : null}
+        {this.props.user && logout}
       </ul>
     );
 

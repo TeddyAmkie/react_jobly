@@ -12,7 +12,7 @@ class Routes extends React.Component {
     const login = <Route exact path="/login" 
                          render={routeProps => <AuthForm {...routeProps} getUser={this.props.getUser} />}
                          />
-    const logout = <Route exact path="/" render={() => <Home />} />
+    const logout = <Route exact path="/" render={() => <Home user={this.props.user} />} />
 
 
     return (
@@ -22,10 +22,10 @@ class Routes extends React.Component {
         <Route exact path="/companies/:handle" render={ routeProps => this.props.user ? <CompanyDetails {...routeProps} /> : <Redirect to='/login' />} />
         <Route exact path="/companies" render={() => this.props.user ? <Companies /> : <Redirect to='/login' />} />
         <Route exact path="/jobs" render={() => this.props.user ?  <Jobs /> : <Redirect to='/login' /> } />
-        <Route exact path="/profile" render={() => this.props.user ?  <Profile /> : <Redirect to='/login' />} />
+        <Route exact path="/profile" render={() => this.props.user ?  <Profile user={this.props.user} getUser={this.props.getUser} /> : <Redirect to='/login' />} />
         {this.props.user ? logout : login}
-        <Route exact path="/" render={() => <Home />} />
-        <Redirect to="/" />
+        <Route exact path="/" render={() => <Home user={this.props.user}/>} />
+        <Redirect to="/" user={this.props.user} />
       </Switch>
     );
   }

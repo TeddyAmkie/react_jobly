@@ -26,7 +26,7 @@ class CompanyDetails extends React.Component {
   // After page loads, this function is called and renders the entire page. 
   renderPage() {
     let jobs = this.state.company.jobs.map(job => {
-      return <JobCard key={job.id} jobData={job}/>
+      return <JobCard key={job.id} {...job}/>
     });
 
     return (
@@ -40,7 +40,7 @@ class CompanyDetails extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="container">
         {this.state.loading === true ? "Loading..." : this.renderPage()}
       </div>
     );

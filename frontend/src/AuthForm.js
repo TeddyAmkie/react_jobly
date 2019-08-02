@@ -86,13 +86,13 @@ class AuthForm extends React.Component {
     );
 
     return (
-      
+
       // Login / Signup Buttons
-      <div className="container" style={{ overflow:"auto"}} >
+      <div className="container" style={{ overflow:"auto"}}>
         <div className="d-flex justify-content-end">
           <Button name="login"
                   onClick={this.handleClick}
-                  className={this.state.method === "login" ? "active" : ""}
+                  className={this.state.method === "login" ? "active mr-1" : "mr-1"}
                   variant="outline-dark" 
                   size="md"
                   >Login</Button>

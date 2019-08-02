@@ -12,7 +12,8 @@ class App extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      user: null
+      user: null,
+      loading: true
     }
 
     this.getUser = this.getUser.bind(this);
@@ -20,15 +21,21 @@ class App extends React.Component {
   }
 
   async componentDidMount() {
-    await this.getUser(token)
+    await this.getUser(token);
+
+    this.setState({ loading: false })
   }
 
   async getUser(token) {
-    if (token) {
-      let username = jwt.decode(token).username;
-      let user = await JoblyApi.getUser(username);
-
-      this.setState({ user });
+    try {
+      if (token) {
+        let username = jwt.decode(token).username;
+        let user = await JoblyApi.getUser(username);
+  
+        this.setState({ user });
+      }
+    } catch(err) {
+      // Redirects to login page 
     }
   }
 
@@ -38,12 +45,17 @@ class App extends React.Component {
   }
 
   render() {
+    const loading = "Loading...";
+    const renderApp = (
+      <BrowserRouter>
+        <Navbar user={this.state.user} handleLogout={this.handleLogout}/>
+        <Routes user={this.state.user} getUser={this.getUser} />
+      </BrowserRouter>
+    );
+
     return (
       <div className="App">
-        <BrowserRouter>
-          <Navbar user={this.state.user} handleLogout={this.handleLogout}/>
-          <Routes getUser={this.getUser} user={this.state.user} />
-        </BrowserRouter>
+        {this.state.loading ? loading : renderApp}
       </div>
     );
   }
