@@ -27,7 +27,7 @@ class Search extends React.Component {
       searchTerm: ""
     });
   };
-
+ 
   render() {
     return (
       <div className="container">
