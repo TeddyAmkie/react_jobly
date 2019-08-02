@@ -92,7 +92,7 @@ router.delete("/:id", adminRequired, async function(req, res, next) {
     await Job.remove(req.params.id);
     return res.json({ message: "Job deleted" });
   }
-
+ 
   catch (err) {
     return next(err);
   }
