@@ -10,8 +10,8 @@ class AuthForm extends React.Component {
       method: "login",
       username: "",
       password: "",
-      firstName: "",
-      lastName: "",
+      first_name: "",
+      last_name: "",
       email: ""
     };
 
@@ -28,10 +28,19 @@ class AuthForm extends React.Component {
 
   async handleSubmit(evt) {
     evt.preventDefault();
+    let token;
 
-    let {username,password} = this.state;
-    let token = await JoblyApi.login({ username, password });
+    if (this.state.method === "login") {
+      let {username,password} = this.state;
+      token = await JoblyApi.login({ username, password });
+    }
 
+    if (this.state.method === "signup") {
+      let {username,password, first_name, last_name, email} = this.state
+      token = await JoblyApi.register({username,password, first_name, last_name, email});
+    }
+
+    // If successfully login/register, set token in localstorage and redirect to homepage.
     localStorage.setItem("token", token);
     await this.props.getUser(token);
     this.props.history.push("/");
@@ -45,22 +54,24 @@ class AuthForm extends React.Component {
   }
 
   render() {
+
+    // Signup Form
     const signUp = (
       <div>
         <Form.Group>
           <Form.Label>First Name</Form.Label>              
-          <Form.Control id="firstName"
-                        name="firstName"
+          <Form.Control id="first_name"
+                        name="first_name"
                         onChange={this.handleChange}
-                        value={this.state.firstName} 
+                        value={this.state.first_name} 
                         size="md" type="text" /> 
         </Form.Group>
         <Form.Group>
           <Form.Label>Last Name</Form.Label>              
-          <Form.Control id="lastName"
-                        name="lastName"
+          <Form.Control id="last_name"
+                        name="last_name"
                         onChange={this.handleChange}
-                        value={this.state.lastName} 
+                        value={this.state.last_name} 
                         size="md" type="text" />
         </Form.Group>
         <Form.Group>
@@ -75,6 +86,8 @@ class AuthForm extends React.Component {
     );
 
     return (
+      
+      // Login / Signup Buttons
       <div className="container" style={{ overflow:"auto"}} >
         <div className="d-flex justify-content-end">
           <Button name="login"

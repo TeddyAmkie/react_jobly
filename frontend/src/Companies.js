@@ -36,11 +36,9 @@ class Companies extends React.Component {
     });
   }
 
-  // NEED TO DO: SHOW UNAUTHORIZED MESSAGE
-  // HIDE NAV LINKS
-  // IF NO USER, REDIRECT TO LOGIN PAGE
-  
   render() {
+
+    // Create a company card for each company 
     const cards = this.state.companies.map(company => {
       return <CompanyCard key={company.handle} {...company}  />
     });

@@ -16,6 +16,7 @@ class Navbar extends React.Component {
 
     const logout = <li className="nav-item mr-4" onClick={this.props.handleLogout}><NavLink to="/">Log Out</NavLink></li>
 
+    // Userlinks are only shown if a user exists in App state
     const userLinks = (
       <ul className="navbar-nav ml-auto">
         <li className="nav-item mr-4"><NavLink to="/companies" activeStyle={ activeStyles }>Companies</NavLink></li>

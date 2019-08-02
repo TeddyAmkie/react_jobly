@@ -17,6 +17,7 @@ class Routes extends React.Component {
 
     return (
       
+      // If a route requires authentication, check for a user in App state.
       <Switch>
         <Route exact path="/companies/:handle" render={ routeProps => this.props.user ? <CompanyDetails {...routeProps} /> : <Redirect to='/login' />} />
         <Route exact path="/companies" render={() => this.props.user ? <Companies /> : <Redirect to='/login' />} />

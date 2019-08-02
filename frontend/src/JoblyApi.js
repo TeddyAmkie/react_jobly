@@ -25,6 +25,8 @@ class JoblyApi {
     }
   }
 
+  // Company API calls
+
   // Returns [{company}, ...]
   static async getAllCompanies() {
     let res = await this.request(`companies/`);
@@ -45,6 +47,8 @@ class JoblyApi {
 
     return res.companies;
   }
+
+  // Job API calls
 
   // Returns [{job}, ...]
   static async getAllJobs() {
@@ -73,6 +77,15 @@ class JoblyApi {
     return res.jobs;
   }
 
+  // User / Authentication API calls
+
+  // Register user, returns token
+  static async register(formInput) {
+    let res = await this.request(`users/`, {...formInput}, "POST");
+
+    return res.token;
+  }
+  
   // Login user, returns token
   static async login(formInput) {
     let res = await this.request(`login/`, { ...formInput}, "POST");
@@ -86,6 +99,7 @@ class JoblyApi {
 
     return res.user;
   }
+  
 }
 
 export default JoblyApi;
